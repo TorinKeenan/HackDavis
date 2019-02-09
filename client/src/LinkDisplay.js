@@ -25,10 +25,11 @@ class LinkDisplay extends Component {
   render() {
     return (
       <React.Fragment>
+      <div>
         <Button className="wbutton">Easier</Button>
         <Button className="wbutton">This is perfect. Give me more of this.</Button>
         <Button className="wbutton">Harder</Button>
-
+      </div>
       </React.Fragment>
     );
   }

@@ -56,9 +56,9 @@ class App extends Component {
             <Dropdown.Item onClick = {()=>{this.setState({difficulty:HARD})}}>{HARD}</Dropdown.Item>
           </DropdownButton>
           <Button className="wbutton" onClick = {this.handleSubmit}>Search</Button>
-
+          {linkDisplay}
         </div>
-        {linkDisplay}
+
       </React.Fragment>
     );
   }
