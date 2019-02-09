@@ -1,3 +1,4 @@
-module.exports = new function(){
-    return "Inside";
+var testf = function(){
+    return "TESTTEST";
 }
+module.exports = testf;

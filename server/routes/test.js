@@ -1,13 +1,7 @@
 var router = require('express').Router();
-var helpers = require('../functions/index.js');
-console.log("------Helpers----")
-console.log(helpers);
+var testf = require('../functions/testf.js');
+
 router.get('/',function (req,res) {
-    // console.log(helpers[testf].());
-    // console.log(helpers[testf]());
-    console.log(helpers.testf());
-    // console.log(helpers.testf.());
-    conso
-    res.send(helpers['testf']());
+    res.send(testf());
 });
 module.exports = router;
