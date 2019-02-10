@@ -22,7 +22,7 @@ function hashCode(str) {
 
 */
 
-compile_params = async function(input_string) {
+const compile_params = async function(input_string) {
     var params = []
     var google_makeup_hash = await classify_makeup_google(input_string);
     console.log("Past Makeup Hash" + google_makeup_hash)
@@ -70,3 +70,4 @@ compile_params = async function(input_string) {
 
 }
 console.log(compile_params(test));
+module.exports = compile_params;

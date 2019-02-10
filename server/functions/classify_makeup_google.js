@@ -54,7 +54,7 @@ var classify_makeup_google = async function(text) {
         .analyzeSyntax({
             document: document})
         .catch(err => {
-            console.error('ERROR:', err);
+            console.error('ERROR1:', err);
         });
     const syntax = results[0];
 
@@ -66,8 +66,6 @@ var classify_makeup_google = async function(text) {
         // console.log(`Morphology:`, part.partOfSpeech);
     });
     return(pos_to_int(pos_array));
-
-
 }
 
 module.exports = classify_makeup_google;
