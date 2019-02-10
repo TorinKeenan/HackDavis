@@ -37,8 +37,8 @@ class App extends Component {
       submitted:false,
       loading:true,
     });
-    console.log('http://localhost:5000/getlink?keyword='+this.state.subject+'&difficulty'+this.state.difficulty);
-    axios.get('http://localhost:5000/getlink?keyword='+this.state.subject+'&difficulty'+this.state.difficulty)
+
+    axios.get('http://ec2-54-183-198-145.us-west-1.compute.amazonaws.com:8080/getlink?keyword='+this.state.subject+'&difficulty'+this.state.difficulty)
     .then(
       res =>{
         console.log("RES",res.data);
@@ -49,9 +49,6 @@ class App extends Component {
         })
       }
     )
-    this.setState({
-      submitted:true,
-    });
   }
   handleChange(event){
    this.setState({subject: event.target.value});
@@ -64,6 +61,7 @@ class App extends Component {
     {
       linkDisplay = (
         <React.Fragment>
+          <br></br>
           <LinkDisplay link = {this.state.response}/>
         </React.Fragment>
       );
@@ -71,8 +69,11 @@ class App extends Component {
     if(this.state.loading)
     {
       loading = (
-        <div className = "loadingDiv">
-        </div>
+        <React.Fragment>
+          <div className = "loadingDiv">
+          </div>
+          <p className = "loadingText">Please wait while we find the perfect resource for you...</p>
+        </React.Fragment>
       )
     }
 

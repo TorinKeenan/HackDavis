@@ -16,7 +16,7 @@ var searchAndScrapeText = async function(searchQuery){
 }
 
 var getLinks = async function (query){
-  const browser = await puppeteer.launch({headless:false});
+  const browser = await puppeteer.launch({headless:true});
   const page = await browser.newPage();
   await page.goto('https://google.com');
   await page.keyboard.type(query+" -site:youtube.com");
