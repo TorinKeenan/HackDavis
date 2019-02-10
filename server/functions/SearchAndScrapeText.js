@@ -37,11 +37,12 @@ var searchAndScrapeText = async function(searchQuery){
 }
 
 async function scrape(link){
+  console.log("LINK: ",link);
   let content = await getHTML(link);
   content = processString(content);
   if(content == null)
   {
-    
+
     return null;
   }
   return content;
@@ -84,11 +85,17 @@ function processString(string)
   //     content = [string.substring(0,string.indexOf('<script>')), string.substring(string.indexOf('</script>'),string.length)].join('');
   //   }
   // }
+
   content = content.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '');
   content = content.replace(/<style\b[^<]*(?:(?!<\/style>)<[^<]*)*<\/style>/gi, '');
   content = content.replace(/<nav\b[^<]*(?:(?!<\/nav>)<[^<]*)*<\/style>/gi, '');
   content = content.replace(/<(?:.|\n)*?>/gm, ''); //strip html into plaintext
   content = content.replace(/\s+/g,' ').trim();
+
+  if(content.length>20000)
+  {
+    content = content.substring((content.length/2)-7000,(content.length/2)+7000);
+  }
   return content
 }
 

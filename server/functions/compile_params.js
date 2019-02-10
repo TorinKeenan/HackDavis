@@ -25,8 +25,16 @@ function hashCode(str) {
 const compile_params = async function(input_string) {
     var params = []
     var google_makeup_hash = await classify_makeup_google(input_string);
+    if(google_makeup_hash==null)
+    {
+      return null;
+    }
     console.log("Past Makeup Hash" + google_makeup_hash)
     var google_topic_string = await classify_topic_google(input_string);
+    if(google_topic_string==null)
+    {
+      return null;
+    }
     console.log("Past Topic Hash" + google_topic_string);
     var self_string_att = classify_text_attributes(input_string);
     params[0] = google_makeup_hash;

@@ -15,7 +15,7 @@ const HARD = "HARD";
 
 var fs = require('fs');
 var file = fs.createWriteStream('array.js');
-file.write("var rawText =  [");
+file.write("var rawText2 =  [");
 
 function removeQuotes(text){
   console.log(escape(text));
@@ -25,6 +25,7 @@ function removeQuotes(text){
 async function processData(){
   var trainingData = [];
   var totalLength = rawEasy.length+rawMedium.length+rawHard.length;
+
   for(var i = 0;i<rawEasy.length;i++)
   {
     console.log((i)*100/totalLength,"% done");

@@ -12,10 +12,14 @@ const language = require('@google-cloud/language');
         type: 'PLAIN_TEXT',
     };
 
-
+    var valueBad = false;
     var results = await client.classifyText({document: document}).catch(err => {
-        console.error('ERROR:', err);
+        console.log('ERROR:', err);
+        valueBad = true;
         });
+    if(valueBad){
+      return null;
+    }
     const classification = results[0];
 
     console.log('Categories:');

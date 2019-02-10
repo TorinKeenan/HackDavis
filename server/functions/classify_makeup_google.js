@@ -48,14 +48,18 @@ var classify_makeup_google = async function(text) {
         content: text,
         type: 'PLAIN_TEXT',
     };
-
+    var valueBad = false
     // Detects syntax in the document
     var results = await client
         .analyzeSyntax({
             document: document})
         .catch(err => {
-            console.error('ERROR1:', err);
+            console.log('ERROR1:', err);
+            valueBad = true;
         });
+    if(valueBad){
+      return null;
+    }
     const syntax = results[0];
 
     //console.log('Tokens:');
