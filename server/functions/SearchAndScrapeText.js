@@ -2,12 +2,26 @@ const puppeteer = require('puppeteer');
 const request = require('request');
 
 var searchAndScrapeText = async function(searchQuery){
+  const links = await getLinks(searchQuery);
+
+
+   var rawText = [];
+   for (var i = 0;i<links.length;i++){
+     var str = await scrape(links[i]);
+     console.log(str);
+     rawText.push(str);
+   }
+   console.log(rawText);
+   return rawText;
+}
+
+var getLinks = async function (query){
   const browser = await puppeteer.launch({headless:false});
   const page = await browser.newPage();
   await page.goto('https://google.com');
-  await page.keyboard.type(searchQuery+" -site:youtube.com");
+  await page.keyboard.type(query+" -site:youtube.com");
   await page.keyboard.press('Enter');
-  await page.waitForSelector('h3 a');
+  await page.waitForSelector('.r a');
 
   //scrape links off of results page
   // const links = await page.$eval('a');
@@ -26,17 +40,12 @@ var searchAndScrapeText = async function(searchQuery){
      link = link.substring(link.indexOf('http'));
      return link;
    }) }).catch(err=>{console.log(err)});
-   var rawText = [];
-   for (var i = 0;i<links.length;i++){
-     var str = await scrape(links[i]);
-     console.log(str);
-     rawText.push(str);
-   }
-   console.log(rawText);
-   return rawText;
+   browser.close();
+   return links;
+
 }
 
-async function scrape(link){
+var scrape = async function (link){
   console.log("LINK: ",link);
   let content = await getHTML(link);
   content = processString(content);
@@ -48,7 +57,7 @@ async function scrape(link){
   return content;
 }
 
-async function getHTML(url) {
+var getHTML = async function (url) {
   var rawHTMLPromise = new Promise((resolve, reject)=> {
     request({
       method: 'GET',
@@ -99,9 +108,12 @@ function processString(string)
   return content
 }
 
+// getLinks("lol");
+
 // searchAndScrapeText("integrals");
 
 module.exports.searchAndScrapeText = searchAndScrapeText;
+module.exports.getLinks = getLinks;
 module.exports.scrape = scrape;
 
 ;

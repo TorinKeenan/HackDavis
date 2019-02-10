@@ -1,3 +1,4 @@
+const alltext = require('./all.js');
 
 function str_atr(common_words, str_array){
  var attributes = [];
@@ -13,7 +14,7 @@ function str_atr(common_words, str_array){
       common.add(common_words[i].trim());
 
   }
-  
+
 
   for(var i = 0; i < str_array.length; i++){
     if(common.has(str_array[i])){
@@ -49,7 +50,7 @@ function stad_dev(str_array, ave){
 
 function main(str) {
     var fs = require('fs');
-    var common_words = fs.readFileSync('./all.txt').toString().split("\n");
+    var common_words = alltext.split("\n");
     var text = str.split(" ");
     //var main = "Hello world this is sndka sd. This is another sentence.";
     //var str = main.split(" ");

@@ -4,3 +4,4 @@ server/routes/GcpCredHackDavis.json
 server/functions/ml/GcpCredHackDavis.json
 server/functions/ml/array.js
 server/functions/ml/array.js
+server/GcpCredHackDavis.json

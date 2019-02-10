@@ -6,7 +6,7 @@ fs.readdirSync( __dirname ).forEach( function( route ) {
   // Strip the .js suffix
   route = route.split( '.' )[ 0 ] ;
   // Ignore index (i.e. this file)
-  if ( route === 'index' ) return ;
+  if ( route === 'index' || route === 'GcpCredHackDavis' ||route === 'all') return ;
   console.log( 'Loading route ' + route + '...' ) ;
   // Mount router
   router.use( '/' + route, require( './' + route + '.js' ) ) ;
