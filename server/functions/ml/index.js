@@ -12,7 +12,7 @@ const arr2 = require('./array2.js');
 const arr3 = require('./array3.js');
 
 const brain = require('brain.js');
-const net = new brain.NeuralNetworkGPU();
+const net = new brain.NeuralNetwork();
 
 const EASY = "EASY";
 const MEDIUM = "MEDIUM";
