@@ -12,6 +12,13 @@ import LinkDisplay from './LinkDisplay';
 const axios = require('axios');
 
 
+const quotes = [
+  'Please wait while we find the perfect resource for you...',
+  'Consulting Google Natural Language Processing...',
+  'Scraping Web Pages...',
+  'Feeding Neural Network...',
+];
+
 const EASY = "EASY";
 const MEDIUM = "MEDIUM";
 const HARD = "HARD";
@@ -26,8 +33,8 @@ class App extends Component {
       submitted:false,
       loading:false,
       response:"",
+      time:0,
     }
-
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
@@ -38,9 +45,16 @@ class App extends Component {
       loading:true,
     });
 
-    axios.get('http://localhost:5000/getlink?keyword='+this.state.subject+'&difficulty='+this.state.difficulty)
+    window.setInterval(()=>{
+      this.setState({
+        time:this.state.time+1
+      })
+    }, 2000);
+
+    axios.get('http://ec2-54-183-198-145.us-west-1.compute.amazonaws.com:8080/getlink?keyword='+this.state.subject+'&difficulty='+this.state.difficulty)
     .then(
       res =>{
+        window.clearTimeout();
         console.log("RES",res.data);
         this.setState({
           submitted:true,
@@ -72,7 +86,7 @@ class App extends Component {
         <React.Fragment>
           <div className = "loadingDiv">
           </div>
-          <p className = "loadingText">Please wait while we find the perfect resource for you...</p>
+          <p className = "loadingText">{quotes[(this.state.time)%5]}</p>
         </React.Fragment>
       )
     }
@@ -84,7 +98,7 @@ class App extends Component {
         <div className = "masterContainer">
           <div className = "container">
             <div>(StudentSearch)</div>
-            <br></br>
+            <br></br><br></br>
             <h3 className = "preface">I want to learn...</h3>
             <input className = "searchBox" content = {this.state.subject} onChange={this.handleChange}></input>
             <ButtonGroup className="mr-2" aria-label="First group">
