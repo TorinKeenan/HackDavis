@@ -33,6 +33,7 @@ var searchAndScrapeText = async function(searchQuery){
      rawText.push(str);
    }
    console.log(rawText);
+   return rawText;
 }
 
 async function scrape(link){
@@ -58,6 +59,12 @@ async function getHTML(url) {
   return rawHTML;
 };
 
+function returnDomainExt(link)
+{
+  var a1 = link.substring(link.indexOf('.'));
+  return a1.substring(0,link.indexOf('/')-2)
+}
+
 function processString(string)
 {
   var content = string;
@@ -71,11 +78,12 @@ function processString(string)
   // }
   content = content.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '');
   content = content.replace(/<style\b[^<]*(?:(?!<\/style>)<[^<]*)*<\/style>/gi, '');
+  content = content.replace(/<nav\b[^<]*(?:(?!<\/nav>)<[^<]*)*<\/style>/gi, '');
   content = content.replace(/<(?:.|\n)*?>/gm, ''); //strip html into plaintext
   content = content.replace(/\s+/g,' ').trim();
   return content
 }
 
-searchAndScrapeText("integrals");
-// console.log(processString("<script>hello</script>lololololol"));
+// searchAndScrapeText("integrals");
+
 module.exports = searchAndScrapeText;
