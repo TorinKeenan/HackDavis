@@ -38,7 +38,7 @@ class App extends Component {
       loading:true,
     });
 
-    axios.get('http://ec2-54-183-198-145.us-west-1.compute.amazonaws.com:8080/getlink?keyword='+this.state.subject+'&difficulty'+this.state.difficulty)
+    axios.get('http://localhost:5000/getlink?keyword='+this.state.subject+'&difficulty='+this.state.difficulty)
     .then(
       res =>{
         console.log("RES",res.data);
