@@ -9,7 +9,7 @@ import Button from 'react-bootstrap/Button';
 
 import LinkDisplay from './LinkDisplay';
 
-
+const axios = require('axios');
 
 
 const EASY = "EASY";
@@ -24,28 +24,60 @@ class App extends Component {
       subject:"",
       difficulty:EASY,
       submitted:false,
+      loading:false,
+      response:"",
     }
 
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
   handleSubmit(){
-    //axios.get
+    this.setState({
+      submitted:false,
+      loading:true,
+    });
+    console.log('http://localhost:5000/getlink?keyword='+this.state.subject+'&difficulty'+this.state.difficulty);
+    axios.get('http://localhost:5000/getlink?keyword='+this.state.subject+'&difficulty'+this.state.difficulty)
+    .then(
+      res =>{
+        console.log("RES",res.data);
+        this.setState({
+          submitted:true,
+          loading:false,
+          response:res.data
+        })
+      }
+    )
     this.setState({
       submitted:true,
     });
   }
+  handleChange(event){
+   this.setState({subject: event.target.value});
+   }
 
   render() {
     var linkDisplay = null;
+    var loading = null;
     if(this.state.submitted)
     {
       linkDisplay = (
         <React.Fragment>
-          <LinkDisplay/>
+          <LinkDisplay link = {this.state.response}/>
         </React.Fragment>
       );
     }
+    if(this.state.loading)
+    {
+      loading = (
+        <div className = "loadingDiv">
+        </div>
+      )
+    }
+
+
+
     return (
       <React.Fragment>
         <div className = "masterContainer">
@@ -53,7 +85,7 @@ class App extends Component {
             <div>(StudentSearch)</div>
             <br></br>
             <h3 className = "preface">I want to learn...</h3>
-            <input className = "searchBox"></input>
+            <input className = "searchBox" content = {this.state.subject} onChange={this.handleChange}></input>
             <ButtonGroup className="mr-2" aria-label="First group">
               <DropdownButton className="super-colors" id="dropdown-basic-button" title={"Difficulty: "+this.state.difficulty}>
                 <Dropdown.Item onClick = {()=>{this.setState({difficulty:EASY})}}>{EASY}</Dropdown.Item>
@@ -64,6 +96,7 @@ class App extends Component {
             </ButtonGroup>
 
             {linkDisplay}
+            {loading}
           </div>
          </div>
 

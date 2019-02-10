@@ -87,6 +87,7 @@ async function main (req) {
   // return(links[index]);
 }
 router.get('/',function (req,res) {
+  console.log("REQ",req.params);
   main(req).then(
     (ree) =>{
       console.log(ree);

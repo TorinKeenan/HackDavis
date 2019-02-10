@@ -26,9 +26,10 @@ class LinkDisplay extends Component {
     return (
       <React.Fragment>
       <div>
-        <Button className="wbutton">Easier</Button>
-        <Button className="wbutton">This is perfect. Give me more of this.</Button>
-        <Button className="wbutton">Harder</Button>
+        <div className ="Link">
+          <p>Here is a resource that fits your difficulty level!</p>
+          <a href={this.props.link}>{this.props.link}</a>
+        </div>
       </div>
       </React.Fragment>
     );

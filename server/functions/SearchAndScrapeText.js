@@ -40,6 +40,7 @@ var getLinks = async function (query){
      link = link.substring(link.indexOf('http'));
      return link;
    }) }).catch(err=>{console.log(err)});
+   page.close();
    browser.close();
    return links;
 
