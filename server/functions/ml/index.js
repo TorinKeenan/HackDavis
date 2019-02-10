@@ -2,12 +2,13 @@
 // import * as SearchAndScrapeText from '../SearchAndScrapeText';
 
 const scraper = require('../SearchAndScrapeText');
+const params = require('../compile_params');
 const rawEasy = require('./easyOut.js');
 const rawMedium = require('./mediumOut.js');
 const rawHard = require('./hardOut.js');
 
 const brain = require('brain.js');
-const net = new brain.recurrent.LSTM();
+const net = new brain.NeuralNetwork();
 
 const EASY = "EASY";
 const MEDIUM = "MEDIUM";
@@ -17,10 +18,6 @@ var fs = require('fs');
 var file = fs.createWriteStream('array.js');
 file.write("var rawText =  [");
 
-function removeQuotes(text){
-  console.log(escape(text));
-}
-
 
 async function processData(){
   var trainingData = [];
@@ -29,6 +26,8 @@ async function processData(){
   {
     console.log((i)*100/totalLength,"% done");
     let toPush = await scraper.scrape(rawEasy[i]);
+    toPush = await params(toPush);
+    console.log("TOPUSH",toPush);
     if(toPush == null)
     {
       console.log("FAILURE",EASY);

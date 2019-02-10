@@ -39,6 +39,11 @@ var searchAndScrapeText = async function(searchQuery){
 async function scrape(link){
   let content = await getHTML(link);
   content = processString(content);
+  if(content == null)
+  {
+    
+    return null;
+  }
   return content;
 }
 
@@ -68,7 +73,10 @@ function returnDomainExt(link)
 function processString(string)
 {
   var content = string;
-
+  if(content == undefined)
+  {
+    return null;
+  }
   // while(string.indexOf('<script>')!=-1)
   // {
   //   if(string.indexOf('</script>')!=-1)
@@ -86,4 +94,7 @@ function processString(string)
 
 // searchAndScrapeText("integrals");
 
-module.exports = searchAndScrapeText;
+module.exports.searchAndScrapeText = searchAndScrapeText;
+module.exports.scrape = scrape;
+
+;
